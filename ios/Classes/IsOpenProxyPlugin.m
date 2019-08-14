@@ -10,11 +10,12 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"isOpenProxy" isEqualToString:call.method]) {
-    result([self getProxyStatus]);
-  } else {
-    result(FlutterMethodNotImplemented);
-  }
+    if ([@"isOpenProxy" isEqualToString:call.method]) {
+        NSNumber *isOpenProxy = [NSNumber numberWithBool:[self getProxyStatus]];
+        result(isOpenProxy);
+    } else {
+        result(FlutterMethodNotImplemented);
+    }
 }
 - (BOOL)getProxyStatus {
     NSDictionary *proxySettings =  (__bridge NSDictionary *)(CFNetworkCopySystemProxySettings());
