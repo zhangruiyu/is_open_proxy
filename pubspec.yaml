@@ -1,8 +1,8 @@
 name: is_open_proxy
 description: Determine whether the phone has enabled the agent
 version: 0.0.1
-author:
-homepage:
+author: ruiyu&laifeng
+homepage: https://github.com/zhangruiyu/is_open_proxy
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
