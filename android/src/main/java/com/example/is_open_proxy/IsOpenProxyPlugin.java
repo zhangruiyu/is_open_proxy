@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
@@ -13,25 +16,24 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 /**
  * IsOpenProxyPlugin
  */
-public class IsOpenProxyPlugin implements MethodCallHandler {
-    Registrar registrar;
-
-    public IsOpenProxyPlugin(Registrar registrar) {
-        this.registrar = registrar;
+public class IsOpenProxyPlugin implements FlutterPlugin, MethodCallHandler  {
+    Context context;
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        context = binding.getApplicationContext();
+        final MethodChannel channel = new MethodChannel(binding.getBinaryMessenger(), "is_open_proxy");
+        channel.setMethodCallHandler(this);
     }
 
-    /**
-     * Plugin registration.
-     */
-    public static void registerWith(Registrar registrar) {
-        final MethodChannel channel = new MethodChannel(registrar.messenger(), "is_open_proxy");
-        channel.setMethodCallHandler(new IsOpenProxyPlugin(registrar));
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+
     }
 
     @Override
     public void onMethodCall(MethodCall call, Result result) {
         if (call.method.equals("isOpenProxy")) {
-            result.success(isWifiProxy(registrar.context()));
+            result.success(isWifiProxy(context));
         } else {
             result.notImplemented();
         }
@@ -64,4 +66,6 @@ public class IsOpenProxyPlugin implements MethodCallHandler {
         return (!TextUtils.isEmpty(proxyAddress)) && (proxyPort != -1);
 
     }
+
+
 }

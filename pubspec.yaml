@@ -1,11 +1,11 @@
 name: is_open_proxy
 description: Determine whether the phone has enabled the agent
-version: 0.0.1
+version: 0.0.2
 author: zhangruiyu <157418979@qq.com>
 homepage: https://github.com/zhangruiyu/is_open_proxy
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.17.3 <3.0.0"
 
 dependencies:
   flutter:
